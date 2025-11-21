@@ -289,3 +289,36 @@
 | Bảng customer | Bình thường | Chi tiết response là chính xác | updatedAt | - | - | customer.updatedAt |
 | Bảng customer | Bình thường | Chi tiết response là chính xác | updatedBy | - | - | customer.updatedBy |
 | Bảng customer | Bình thường | Chi tiết response là chính xác | updatedUserName | - | - | customer.updatedUserName |
+| projectSearch | Bình thường | Xác nhận kết quả search có đúng không khi không nhập gì | Response | - | - | Trả về tất cả record project |
+| projectSearch | Bình thường | Thứ tự sort phải được thực hiện đúng | Response | - | - | [Response].[deliveryDate] DESC |
+| projectSearch | Bình thường | Thứ tự sort phải được thực hiện đúng | Response | [Response].[deliveryDate] trùng nhau | - | [Response].[id] DESC |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | orderDateFrom | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.orderDate >= Request parameter:orderDateFrom |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | orderDateFrom | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | orderDateTo | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.orderDate <= Request parameter:orderDateTo |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | orderDateTo | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | deliveryDateFrom | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.deliveryDate >= Request parameter:deliveryDateFrom |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | deliveryDateFrom | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | deliveryDateTo | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.deliveryDate <= Request parameter:deliveryDateTo |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | deliveryDateTo | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | projectDetail | =1 | Optional parameters khác để trống | Trả về các record project có projectDetail.length > 0 |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | projectDetail | != 1 OR Ko nhập | Optional parameters khác để trống | Trả về tất cả record project |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | salesStaffId | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.salesStaffId = Request parameter: salesStaffId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | salesStaffId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | customerId | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.customerId = Request parameter: customerId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | customerId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | deliveryStaffType | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.invoiceprojectId = Request parameter: deliveryStaffType |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | deliveryStaffType | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | staffId | Giá trị tồn tại trong DB | Optional parameters khác để trống | Trả về các record project có project.staffId = Request parameter: staffId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | staffId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | agencyId | - | - | Trả về các record project có project.agencyId = Request parameter: agencyId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | agencyId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | agencyStaffId | - | - | Trả về các record project có project.agencyStaffId = Request parameter: agencyStaffId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | agencyStaffId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | supplierId | - | - | Trả về các record project có project.supplierId = Request parameter: supplierId |
+| projectSearch | Bình thường | Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng | supplierId | - | - | Search giống toàn bộ |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | limit | >=0 | Optional parameters khác để trống | Trả về Request parameter.limit record đầu tiên |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | offset | >=1 | Optional parameters khác để trống | Trả về từ record có thứ tự từ Request parameter: offset + 1 |
+| projectSearch | Bình thường | Search từng hạng mục, kết quả search phải đúng với nội dung trong DB | agency | - | login user.userFlag = 11 OR 12 | Trả về record project có project.agencyId = login user.agencyId |
+| projectSearch | Bình thường | Xử lý search "and" hoặc "or" phải được thực hiện đúng. | deliveryStaffType | - | Nhập 2 option trở lên | Search "or" |
+| projectSearch | Bình thường | Xử lý search "and" hoặc "or" phải được thực hiện đúng. | Giữa parameter với parameter | - | - | Search "and" |
+| projectSearch | Bình thường | Kết quả search là 0 record phải xử lý đúng | Response | Điều kiện không có kết quả search | Số record tương ứng = 0 | **Status: 200 OK**<br>`[]` |

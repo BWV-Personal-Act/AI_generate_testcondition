@@ -1,0 +1,11 @@
+No.,Tên message,Thời điểm hiển thị,Message lỗi,Biến {0},Biến {1},Biến {2},Ghi chú
+1,requiredError,Khi bị lỗi required,{0}は必須です。,Tên hạng mục,,,
+2,lengthExceeded,Khi bị lỗi vượt quá max-length,{0}は「{1}」文字以下で入力してください。（現在{2}文字）,Tên hạng mục,Số kí tự tối đa,Số kí tự hiện tại,
+3,emailErorr,Lỗi format (địa chỉ email),メールアドレスを正しく入力してください。,,,,
+4,loginFailure,Khi login thất bại,メールアドレスまたは会員IDが間違っています。,,,,
+5,datatypeError,Lỗi data-type,{0}は{1}で入力してください。,Tên hạng mục,Data-type,,
+6,valueError,Trường hợp sai giá trị list đang định nghĩa,有効なリスト値を入力してください。,,,,
+7,notExistError,Khi không tồn tại data tương ứng,該当する{0}がありません。,Tên hạng mục,,,
+8,duplicateValueError,Trùng mail,すでにメールアドレスは登録されています。,Tên hạng mục,,,
+9,deleteError,Không thể xóa user đang login,ログインしているアカウントを削除できません。,,,,
+10,formatError,Khi sai format date,{0}は日付を正しく入力してください。,Tên hạng mục,,,

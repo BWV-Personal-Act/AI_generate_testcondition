@@ -1,0 +1,146 @@
+Level,Tiêu đề test/ Chi tiết test,Đối tượng test,Lưu ý khi ghi testcase,Ví dụ cách viết testcase (Tiếng Việt),,
+,,,,Normal/ Abnormal,Test detail,Expect result
+,Common,,,,,
+-,Cấu trúc URL của các API phải nhất quán.,Tất cả API,"- Thường bên Nhật sẽ quy định URL trong thiết kế hoặc file danh sách API. Nếu ghi trong cả 2 tài liệu và 2 tài liệu không thống nhất nhau thì cần QA hỏi lại ưu tiên làm theo bên nào.
+- Trường hợp bên Nhật không ghi URL trong file trên thì QA nhờ bổ sung, hoặc trường hợp không có file trên luôn thì phải QA common và yêu cầu liệt kê hết URL các API, note lại nội dung lên Wiki.
+- Trường hợp bên Nhật để tự đặt tên URL thì lead dự án phải tạo tài liệu rule đặt URL lên Wiki kèm danh sách URL đã đặt.
+- Trường hợp URL có GET parameter thì đánh dấu parameter bằng dấu hai chấm, ví dụ /:id.
+- Không cần phải ghi các query parameter như ?type=.",Bình thường,URL API phải đúng,"〇: GET /order/:id
+✖: /order/:id
+✖: GET /order/id
+✖: GET /order?id="
+-,Thực hiện check chứng thực đúng theo như tài liệu thiết kế.,Tất cả API,"- Xét về mặt chứng thực thì có thể chia làm 2 loại API:
++ API có thể call mà không cần chứng thực (không cần gửi API-key hoặc accessToken...)
++ API chỉ có thể call khi có chứng thực (cần gửi API-key hoặc accessToken..., bên Nhật hay gọi tắt là cần login)
+- Nên xác nhận với bên Nhật từ đầu là những API nào có thể call mà không cần chứng thực, và API nào phải chứng thực mới call được. Ngoài ra cần xác nhận là chứng thực bằng gì (API-key hay accessToken do API login của hệ thống trả về, hay token nào đó hệ thống khác trả về). Thường spec này sẽ ghi trong file common spec hoặc file danh sách API.",Bất thường,Check chứng thực,"Status: 401 Unauthorized
+{
+　""errors"": [
+　　""認証エラー""
+　]
+}"
+1,"Data có get (search) / insert / update / delete đúng theo quyền hạn (admin, user) hay không nếu có phân quyền. ",API có phân quyền,"- Nếu hệ thống có nhiều phân quyền, nên xác nhận với bên Nhật từ đầu là có danh sách phân quyền API hay không, hay chỉ thêm xử lý phân quyền ở những API có spec phân quyền chi tiết",Bất thường,Check quyền hạn,"Status: 403 Forbidden
+{
+　""errors"": [
+　　""権限がないURLです""
+　]
+}"
+,Check validation,,,,,
+1,"Thực hiện check validation (required, max-length, kiểu dữ liệu, khóa ngoại v.v..) đúng theo như tài liệu thiết kế.",Tất cả API,"- API search thường chỉ check required, không check các lỗi validate khác. Tuy nhiên nên có check format date/time/datetime... ở các điều kiện search mà có kiểu dữ liệu này, vì khi nhập sai format thường cho ra kết quả search sai (trong khi lẽ ra phải không ra kết quả search).
+- Mỗi lần test, chỉ được test duy nhất 1 hạng mục và duy nhất 1 lỗi.
+- Điều kiện test tiên quyết là các hạng mục required phải nhập đúng và các hạng mục optional khác phải để trống để không bị trả thêm lỗi khác ngoài lỗi muốn test.
+- Cột giá trị nhập thì ghi giá trị nhập gây ra lỗi (ví dụ bỏ trống, nhập quá 50 ký tự, nhập chữ, nhập giá trị khác 1 or 2...)
+- Đối với các thiết kế API không ghi rõ check validate thế nào cần QA lại (cần check những gì, trả lỗi gì), thường thì check theo nguyên tắc sau:
+1/ Hạng mục nào có ghi chú ""required"" thì phải check required
+2/ Các hạng mục có kiểu dữ liệu như date, datetime, int, decimal... thì phải check format (varchar, char, text không cần)
+3/ Các hạng mục varchar, char, decimal có length check theo thiết kế DB. Riêng trường hợp int thì tùy kiểu int gì (bigint, mediumint...) và signed hay unsigned thì length tối đa sẽ khác nhau (chứ không phải spec ghi sao sẽ check theo vậy được).
+4/ Các hạng mục có list giá trị thì check giá trị
+5/ Các hạng mục là khóa ngoại thì check giá trị",Bất thường,Check required,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""ユーザー名は必須項目です。""
+　]
+}"
+,,,,Bất thường,Check format,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""部署IDは数値で入力してください。""
+　]
+}"
+,,,,Bất thường,Check size,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""メールアドレスは255文字以下で入力してください。（現在{Số ký tự hiện tại}文字）""
+　]
+}"
+,,,,Bất thường,Check giá trị,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""有効な権限を入力してください。""
+　]
+}"
+,Xác nhận reponse trong trường hợp call API thành công/thất bại,,Điều kiện tiên quyết là không xảy ra lỗi validation,,,
+1,Status và message tương ứng phải trả về đúng như thiết kế.,Khi call API thất bại,"- Trường hợp call thất bại do lỗi khác lỗi validation (không phải do input), phải ghi rõ điều kiện gây thất bại.
+- Trường hợp có nhiều điều kiện OR có thể gây call thất bại, phải tách ra mỗi điều kiện một case.",Bất thường,Response phải đúng,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""原価計上無の受注に対して売上登録は行えません""
+　]
+}"
+1,,Khi call API thành công,"- Case test thành công phải nằm dưới cùng trong testcase, ngay sau khi kết thúc case bất thường.
+- Trường hợp call thành công, ghi vào cột điều kiện là không xảy ra lỗi như bên trên nêu.
+- Trường hợp call thành công mà trả về nhiều parameters, phải có testcase test từng parameters một (tham khảo case bên dưới).",Bình thường,Response phải đúng,"Status: 200 OK
+[
+　{ Tham khảo bên dưới }
+]
+※Chi tiết tham khảo test case bên dưới"
+1,Giá trị trả về phải đúng theo DB hoặc điều kiện trả về,Tất cả API,"- Nếu có điều kiện đi kèm để trả ra giá trị tương ứng, phải ghi rõ điều kiện đó (ví dụ nếu có processing ràng buộc thì trả 0).
+- Trường hợp giá trị lấy từ DB thì ghi rõ lấy từ bảng nào field nào.",Bình thường,Chi tiết response phải đúng,"〇: section.name
+〇: Trả về section.name
+✖: Hiển thị section.name"
+1,"Format của data (format date, date time, giá trị số.v.v.) trả về phải đúng theo thiết kế.",Hạng mục cần format,Giống với bên testcase màn hình,Bình thường,Chi tiết response phải đúng,"〇: Trả về dưới dạng yyyy/mm/dd hh:mm
+✖: Hiển thị dưới dạng yyyy/mm/dd hh:mm"
+-,Response của API sau khi convert source (từ ngôn ngữ này sang ngôn ngữ khác) phải trả về đầy đủ,Tất cả API,"- Áp dụng đối với dự án chỉ yêu cầu convert source mà không có spec-change gì khác.
+- Sử dụng công cụ diff checker (ví dụ: https://www.diffchecker.com) để so sánh response giữa API trước khi convert và sau khi convert.
+- Chỉ tập trung vào phần response body, không cần so sánh header hoặc status code nếu không thay đổi.
+- Đảm bảo sau khi convert, tất cả các parameter trả về đều giống với trước khi convert.",Bình thường,Chi tiết response phải đúng,"Response sau khi convert được trả về giống với response trước khi convert.
+"
+,Xác nhận control,,,,,
+1,Trường hợp insert: xử lý đăng ký phải được tiến hành đúng trong Table và field.,API có lưu DB,Giống với bên testcase màn hình,Bình thường,Xử lý đăng ký phải được tiến hành đúng trong table và field,"〇: Xử lý đăng ký phải được tiến hành đúng vào table user
+※Chi tiết tham chiếu test case bên dưới"
+,,,,Bình thường,Giá trị lưu DB phải đúng,"〇: params:userName
+〇: params:userNameが格納されること
+〇: (変更なし)
+〇: NULL
+✖: 該当値
+✖: 該当値が格納されること"
+1,Trường hợp update: xử lý update phải được tiến hành đúng trong Table và field.,,,Bình thường,Xử lý cập nhật phải được tiến hành đúng trong table và field,"〇: Xử lý cập nhật phải được tiến hành đúng vào table user
+※Chi tiết tham chiếu test case bên dưới"
+1,Trường hợp delete: xử lý xóa (xóa cứng hoặc xóa mềm) phải được tiến hành đúng trong Table và field.,,,Bình thường,Xử lý xóa logic phải được tiến hành đúng trong table và field,"〇: Xoá logic phải được tiến hành đúng trong table user
+※Chi tiết tham chiếu test case bên dưới"
+,,,,Bình thường,Xử lý xóa vật lý phải được tiến hành đúng trong table và field,〇: Xoá vật lý phải được tiến hành đúng trong table user
+,Xác nhận chức năng search,,,,,
+1,Thứ tự sort của data trả về phải đúng theo thiết kế.,API search,Giống với bên testcase màn hình,Bình thường,Thứ tự sort của data trả về phải đúng,"〇: Trả về theo thứ tự section.sort tăng dần
+✖: Sort bằng section.sort
+✖: Hiển thị theo thứ tự section.sort tăng dần"
+1,Xác nhận kết quả search có đúng không khi không nhập gì,,,Bình thường,Xác nhận kết quả search có đúng không khi không nhập gì,〇: Get tất cả các record user có user.deletedAt = NULL
+1,"Trường hợp get(search): search từng hạng mục, kết quả search phải đúng với nội dung trong DB",,,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",〇: Get các record user có user.userName = Giá trị nhập ở [ユーザ名]
+1,Trường hợp get(search): xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng.,,,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,"〇: Xử lý search giống toàn bộ phải thực hiện đúng
+〇: Xử lý search like phải thực hiện đúng
+✖: Xử lý search giống toàn bộ hoặc search like phải thực hiện đúng"
+1,"Trường hợp get(search): xử lý search ""and"" hoặc ""or"" phải được thực hiện đúng.",,,Bình thường,"Xử lý search ""and"" hoặc ""or"" phải được thực hiện đúng.","〇: Xử lý search ""and"" phải được thực hiện đúng
+〇: Xử lý search ""or"" phải được thực hiện đúng
+✖: Xử lý search ""and"" hoặc ""or"" phải được thực hiện đúng"
+1,Xác nhận response khi 0 record,,,Bình thường,Kết quả search là 0 record phải xử lý đúng,"〇: Trả về INFO ""指定された条件に該当するデータが存在しません。入力内容を確認してください。"""
+,Khác,,,,,
+1,Gọi API có xuất log hay không phải đúng như thiết kế.,Có spec xuất log,"- Ghi tách ra nhiều case kiểm tra log: thư mục chứa log, tên file log, mức độ log, hình thức log... Chi tiết xem bên dưới",Bình thường,Xử lý xuất log phải thực hiện đúng,-
+,Xuất Log API,,,,,
+1,Thời điểm xuất log phải đúng như thiết kế. ,Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,Thời điểm xuất log phải đúng,〇: Log được xuất khi nhận request
+1,"File log xuất ra đặt tên phải đúng như thiết kế. 
+※Thông thường tên file log đặt bằng chữ số latinh, trường hợp đặt tên bằng tiếng Nhật có khi bị bể chữ.",Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,File log xuất ra đặt tên phải đúng,〇: Tên file log xuất ra là application.log
+1,Tên thư mục chứa log phải đúng như thiết kế. ,Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,Tên thư mục chứa log phải đúng,"〇: File log được xuất ra nằm trong thư mục ""logs"""
+1,Đường dẫn thư mục chứa log phải đúng như thiết kế. ,Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,Đường dẫn thư mục chứa log phải đúng,〇: app/tmp/logs/(tên file log)
+1,Xuất log phân ra theo ngày hay gộp chung 1 file log thì phải đúng như thiết kế. ,Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,"Xuất log phân ra theo ngày
+hoặc
+Xuất log gộp chung 1 file","〇: app/tmp/logs/yyyymmdd/(tên file log)
+〇: app/tmp/logs/applicationyyyymmdd.log
+〇: app/tmp/logs/application.log "
+1,"Hình thức xuất log phải đúng như thiết kế. 
+※Ví dụ: [Timestamp][Cấp độ log][IP][session ID][User ID][Nội dung]",Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,Hình thức xuất log phải đúng,"〇: 2022/12/12 02:45:59 [error] 10079#10079: 432429 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 118.69.72.236, server: 18.180.183.98, request: ""POST /car/22648/edit HTTP/1.1"""
+1,"Cấp độ log phải đúng như thiết kế.
+※Ví dụ: ERROR, WARNING",Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng
+- Cần chia nhỏ case theo từng cấp độ:  
+FATAL
+ERROR
+WARNING
+INFO
+DEBUG",Bình thường,"Cấp độ log FATAL
+Cấp độ log ERROR
+Cấp độ log WARNING
+Cấp độ log INFO
+Cấp độ log DEBUG","〇: 2022/12/12 02:45:59 [fatal] .....
+〇: 2022/12/12 02:45:59 [error] .....
+〇: 2022/12/12 02:45:59 [warning] .....
+〇: 2022/12/12 02:45:59 [info] .....
+〇: 2022/12/12 02:45:59 [debug] ....."
+1,"Nội dung log phải đúng như thiết kế.
+※Ví dụ: [Đã cập nhật request của API]",Có spec xuất log,"- Spec xuất log thường ghi trong tài liệu thiết kế common, cần tham khảo thiết kế common mục xuất log của API để ghi test-case cho đúng",Bình thường,Nội dung log phải đúng,〇: システムエラーが発生しました BATCH03

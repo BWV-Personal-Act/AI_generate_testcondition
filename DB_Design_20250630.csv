@@ -1,18 +1,18 @@
-,Thông tin c? b?n b?ng,,,,,,,,,,,
-,,System name,Intern,,,,,,Biên so?n,,,
-,,Sub system name,,,,,,,Ngày,,,
-,,Schema name,,,,,,,Ngày hi?u ?ính,,,
-,,Tên b?ng logic,??,,,,,,RDBMS,,,
-,,Tên b?ng v?t lí,customer,,,,,,,,,
-,,Ghi chú,,,,,,,,,,
+,Thï¿½ng tin c? b?n b?ng,,,,,,,,,,,
+,,System name,Intern,,,,,,Biï¿½n so?n,,,
+,,Sub system name,,,,,,,Ngï¿½y,,,
+,,Schema name,,,,,,,Ngï¿½y hi?u ?ï¿½nh,,,
+,,Tï¿½n b?ng logic,??,,,,,,RDBMS,,,
+,,Tï¿½n b?ng v?t lï¿½,customer,,,,,,,,,
+,,Ghi chï¿½,,,,,,,,,,
 ,,,,,,,,,,,,
 ,,,,,,,,,,,,
 ,,,,,,,,,,,,
-,Thông tin column,,,,,,,,,,,
-,No.,Tên logic,Tên v?t lí,Data type,Max-length,Decimal,PK,Relation,Ref_table,Not NULL,Default,Ghi chú
+,Thï¿½ng tin column,,,,,,,,,,,
+,No.,Tï¿½n logic,Tï¿½n v?t lï¿½,Data type,Max-length,Decimal,PK,Relation,Ref_table,Not NULL,Default,Ghi chï¿½
 ,1,??ID,id,bigint,,,1,,,Yes,,Auto-increment
 ,2,???????,email,varchar,255,,,,,Yes,,
-,3,?????,password,varchar,255,,,,,Yes,,Khi l?u c?n mã hóa
+,3,?????,password,varchar,255,,,,,Yes,,Khi l?u c?n mï¿½ hï¿½a
 ,4,???,name,varchar,100,,,,,Yes,,
 ,5,?????,started_date,date,,,,,,Yes,,
 ,6,??,position_id,tinyint,,,,,,Yes,,"0 ???, 1: ???????, 2: ?????"
@@ -22,7 +22,7 @@
 ,10,,,,,,,,,,,
 ,11,,,,,,,,,,,
 ,,,,,,,,,,,,
-,Thông tin index,,,,,,,,,,,
-,No.,Tên index,Field,,,,,,,Primary key,Unique,Note
+,Thï¿½ng tin index,,,,,,,,,,,
+,No.,Tï¿½n index,Field,,,,,,,Primary key,Unique,Note
 ,1,PRIMARY,id,,,,,,,Yes,Yes,
 ,2,,,,,,,,,,,
