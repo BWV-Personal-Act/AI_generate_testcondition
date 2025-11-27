@@ -1,0 +1,28 @@
+,Th�ng tin c? b?n b?ng,,,,,,,,,,,
+,,System name,Intern,,,,,,Bi�n so?n,,,
+,,Sub system name,,,,,,,Ng�y,,,
+,,Schema name,,,,,,,Ng�y hi?u ?�nh,,,
+,,T�n b?ng logic,??,,,,,,RDBMS,,,
+,,T�n b?ng v?t l�,customer,,,,,,,,,
+,,Ghi ch�,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,Th�ng tin column,,,,,,,,,,,
+,No.,T�n logic,T�n v?t l�,Data type,Max-length,Decimal,PK,Relation,Ref_table,Not NULL,Default,Ghi ch�
+,1,??ID,id,bigint,,,1,,,Yes,,Auto-increment
+,2,???????,email,varchar,255,,,,,Yes,,
+,3,?????,password,varchar,255,,,,,Yes,,Khi l?u c?n m� h�a
+,4,???,name,varchar,100,,,,,Yes,,
+,5,?????,started_date,date,,,,,,Yes,,
+,6,??,position_id,tinyint,,,,,,Yes,,"0 ???, 1: ???????, 2: ?????"
+,7,???,created_date,date,,,,,,Yes,,
+,8,???,updated_date,date,,,,,,Yes,,
+,9,???,deleted_date,date,,,,,,,,
+,10,,,,,,,,,,,
+,11,,,,,,,,,,,
+,,,,,,,,,,,,
+,Th�ng tin index,,,,,,,,,,,
+,No.,T�n index,Field,,,,,,,Primary key,Unique,Note
+,1,PRIMARY,id,,,,,,,Yes,Yes,
+,2,,,,,,,,,,,

@@ -219,8 +219,6 @@
 | customerCreate | Bất thường | Check format | presidentTel | Khác số và "-" | - | **Status: 422 Unprocessable Entity**<br>`{ "errors": [ "代表者電話番号は数値と\"-\"のみ入力可能です。" ] }` |
 | customerCreate | Bất thường | Check format | invoiceNotationType | Khác số | - | Không hiện lỗi (Có thể nhập nhiều option ngăn cách nhau bởi dấu ",") |
 | customerUpdate | Bất thường | Check quyền hạn | Quyền hạn | - | user.userFlag của login user != 0,1 | **Status: 403 Forbidden**<br>`{ "message": "権限がないURLです" }` |
-| Chức năng test | Bình thường / Bất thường | Chi tiết test | Parameter / Hạng mục | Giá trị nhập | Điều kiện tiền đề | Giá trị xuất |
-|-----------------|---------------------------|----------------|----------------------|----------------|--------------------|---------------|
 | customerSearch | Bình thường | Response phải đúng | Response | Điều kiện có kết quả search | Số record tương ứng > 0 | Status: 200 OK <br> `[ {Tham chiếu bên dưới} ]` <br> ※Chi tiết tham chiếu test case bên dưới |
 | Bảng customer | Bình thường | Chi tiết response là chính xác | id | - | - | customer.id |
 | Bảng customer | Bình thường | Chi tiết response là chính xác | type | - | - | customer.name |
