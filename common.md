@@ -20,7 +20,6 @@
 * Lỗi 404: Trả trong trường hợp truy cập vào URL không được chuẩn bị sẵn
 * Lỗi 500: Trả trong trường hợp xảy ra lỗi nội bộ server
 * Về `offset`: Trường hợp có gửi `offset`, trả từ record thứ (`offset`-1)*`limit`+1
-  Ví dụ: Gửi `offset` = 3, `limit` = 10, thì trả về từ record thứ (3-1)*10+1=21
 
 + Response 400 (application/json)
     + Attributes (object)

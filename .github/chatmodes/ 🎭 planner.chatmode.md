@@ -82,6 +82,35 @@ Yêu cầu:
 - Không giải thích thêm ngoài bảng
 - Cột Parameter/Hạng mục chỉ cần là tên trường nếu có truyền params thì xuất "Có truyền ${tên params}", nếu không truyền thì xuất "Không truyền params". Không cần xuất chi tiết giá trị params ở cột này.
 - Trường hợp trong đặc tả API có mô tả xử lý lỗi nghiệp vụ (business error) thì tạo các hàng testcase tương ứng áp dụng Quy tắc đặc biệt cho "Response must be correct" (Phản hồi phải đúng) bên dưới.
+- Nếu Parameter là một object thì xuất `{objectName}.{fieldName}`, nếu Parameter là một mảng thì xuất `arrayName[i].{fieldName}`. Xuất vào cột Parameter/Hạng mục
+- Cần tạo các hàng bổ sung `Giá trị lưu DB phải đúng` cho các cột createdAt, createdBy, createdUserName, updatedAt, updatedBy, updatedUserName. Vì những cột này không có trong đặc tả DB nhưng là các cột common.
+- Trường hợp `Xử lý cập nhật phải được tiến hành đúng vào table` các cột không thay đổi giá trị thì tạo các hàng bổ sung cho từng trường với giá trị xuất là `Không thay đổi`. \
+- Nếu `Điều kiện tiền đề` có điều kiện phân cấp (lồng nhau) thì nối chúng lại bằng dấu `<br>` trong cùng một ô, ghi đầy đủ điều kiện không cần tóm tắt cho gọn. Ví dụ trường hợp đặc tả:
+
+```
+  Trường hợp A ... <br>
+    Trường hợp [type] = 1 <br>
+      Xử lý ... <br>
+    Trường hợp [type] = 4 <br>
+      Xử lý ... <br>
+  Trường hợp B ... <br>
+    Trường hợp [status] = 'active' <br>
+      Xử lý ... <br>
+    Trường hợp [status] = 'inactive' <br>
+      Xử lý ... <br>
+```
+
+Sẽ tạo các hàng testcase với cột `Điều kiện tiền đề` như sau:
+| Chức năng test | Bình thường / Bất thường | Chi tiết test | Parameter/Hạng mục | Giá trị nhập | Điều kiện tiền đề | Giá trị xuất |
+|----------------|-------------------------|----------------|--------------------|---------------|--------------------|---------------|
+| apiName | Bất thường | ... | ... | ... | Trường hợp A ... <br> Trường hợp [type] = 1 | ... |
+| apiName | Bất thường | ... | ... | ... | Trường hợp A ... <br> Trường hợp [type] = 4 | ... |
+| apiName | Bất thường | ... | ... | ... | Trường hợp B ... <br> Trường hợp [status] = 'active' | ... |
+| apiName | Bất thường | ... | | ... | ... | Trường hợp B ... <br> Trường hợp [status] = 'inactive' | ... |
+
+- Nếu `Điều kiện tiền đề` có nhiều điều kiện lồng nhau thì nối chúng lại bằng dấu `<br>` trong cùng một ô, ghi đầy đủ điều kiện không cần tóm tắt cho gọn.
+- ` Xử lý cập nhật/đăng ký/ xóa vật lý phải được tiến hành đúng vào table` phải tác ra những hàng riêng. Tách biệt xử lý cập nhật, đăng ký, xóa vật lý thành các hàng riêng biệt.
+- Nếu đặc tả API ví dụ `GET /v1/project` thì không cần tạo các hàng testcase validate từ DB. Chỉ cần check required.
 
 ### Quy tắc đặc biệt cho "Response must be correct" (Phản hồi phải đúng)
 
@@ -113,11 +142,15 @@ Yêu cầu:
   | apiName | Bất thường | Response phải đúng | Response | ${giá trị nhập của params} | ${Điều kiện tiền đề} | Status: ${status code lỗi tương ứng} <br> `{ "errors": [ "${message lỗi}" ] }` |
 - Nếu trong đặc tả API có các trường hợp dựa vào [Parameters] để xử lý thì sẽ xuất là "[Params].${tên params}" trong cột Giá trị nhập.
 
+- Trường hợp có trả về limit và offset trong response thì chỉ cần xuất công thức tính toán trong cột Giá trị xuất, không cần liệt kê từng giá trị cụ thể như này `Trả về từ record thứ ((2-1)*1 + 1)`. chỉ cần xuất như sau ví dụ:
+  - offset: `Trả về từ record thứ (([params].offset-1)*[params].limit + 1)`
+  - limit: `Trả về tối đa [params].limit record`
+
 ---
 
 # 3. Các quy tắc validate từ DB
 
-- Nếu đặc tả API Search thì không cần tạo các quy tắc validate từ DB. Bỏ qua bước này.
+- Nếu đặc tả API là một API search (Method [GET]) thì không cần tạo các quy tắc validate từ DB. Bỏ qua bước này.
 
 Sử dụng `{db_file}` để tạo các testcase validation:
 
