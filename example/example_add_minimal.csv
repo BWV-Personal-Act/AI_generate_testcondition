@@ -1,0 +1,181 @@
+,,,,,,,,,,,,,,,,,,,
+,Tên kế hoạch test,projectCreate - EXAMPLE,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,Thiết bị test,PC,,Trình duyệt test,Postman,,,,Ngày test lần 1,,,,Ngày test lần 2,,,,Ngày test lần 3,,Test date
+#,Function Test,"Normal/
+Abnormal",Test Detail,Parameter/Item,Input Value,Pre-Condition,Output Value,1st result status,1st test comment,1st tester name,1st fixed ticket number,2nd result status,2nd test comment,2nd tester name,2nd fixed ticket number,3rd result status,3rd test comment,3rd tester name,3rd fixed ticket number
+#,Chức năng test,"Bình thường/ 
+Bất thường",Chi tiết test,Parameter/Hạng mục,Giá trị nhập,Điều kiện tiền đề,Giá trị xuất,Kết quả lần 1,Comment kết quả thực thi test lần 1,Tên tester lần 1,Mã ticket sửa lần 1,Kết quả lần 2,Comment kết quả thực thi test lần 2,Tên tester lần 2,Mã ticket sửa lần 2,Kết quả lần 3,Comment kết quả thực thi test lần 3,Tên tester lần 3,Mã ticket sửa lần 3
+1,projectCreate,Bình thường,URL phải đúng,URL,-,-,POST /v1/project,,,,,,,,,,,,
+2,projectCreate,Bất thường,Check chứng thực,Tổng thể,-,-,"Status: 401 Unauthorized
+{
+　""message"": ""認証エラー""
+}",,,,,,,,,,,,
+3,projectCreate,Bất thường,Check quyền hạn,Quyền hạn,-,user.userFlag của login user != 1 and 2 and 11 and 12,"Status: 403 Forbidden
+{
+　""message"": ""権限がないURLです""
+}",,,,,,,,,,,,
+4,projectCreate,Bất thường,Check required,orderDate,Không nhập,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""受注日は必須です""
+    ]
+}",,,,,,,,,,,,
+5,projectCreate,Bất thường,Check required,deliveryDate,Không nhập,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""納品日は必須です""
+    ]
+}",,,,,,,,,,,,
+6,projectCreate,Bất thường,Check required,deliveryStaffType,Không nhập,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""配送区分は必須です""
+    ]
+}",,,,,,,,,,,,
+7,projectCreate,Bất thường,Check required,projectDetail[i].customerItemId,Không gửi,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""商品名は必須です""
+    ]
+}",,,,,,,,,,,,
+8,projectCreate,Bất thường,Check required,projectDetail[i].quantity,Không gửi,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""数量は必須です""
+    ]
+}",,,,,,,,,,,,
+9,projectCreate,Bất thường,Check required,projectDetail[i].unitPrice,Không gửi,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""単価は必須です""
+    ]
+}",,,,,,,,,,,,
+10,projectCreate,Bất thường,Check required,projectDetail[i].amount,Không gửi,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""金額は必須です""
+    ]
+}",,,,,,,,,,,,
+11,projectCreate,Bất thường,Check required,projectDetail[i].sort,Không gửi,-,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""並び順は必須です""
+    ]
+}",,,,,,,,,,,,
+12,projectCreate,Bất thường,Check required,staffId,Không gửi,[Parameters].[deliveryStaffType] = 1,"Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""担当者IDは必須です""
+    ]
+}",,,,,,,,,,,,
+13,projectCreate,Bất thường,Check required,agencyId,Không gửi,"[Parameters].[deliveryStaffType] = 2
+AND
+userFlag của login user != 11 AND 12","Status: 422 Unprocessable Entity 
+{
+    ""errors"": [
+        ""代理店idは必須です""
+    ]
+}",,,,,,,,,,,,
+14,projectCreate,Bất thường,Check format,orderDate,Khác format date,-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""受注日は日付のみ入力可能です""
+　]
+}",,,,,,,,,,,,
+15,projectCreate,Bất thường,Check format,deliveryDate,Khác format date,-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""納品日は日付のみ入力可能です""
+　]
+}",,,,,,,,,,,,
+16,projectCreate,Bất thường,Check format,projectDetail[i].quantity,"Khác số hoặc không phải decimal(10,2)",-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""数量は小数点前8桁、小数点以下2桁で入力してください""
+　]
+}",,,,,,,,,,,,
+17,projectCreate,Bất thường,Check format,projectDetail[i].unitPrice,"Khác số hoặc không phải decimal(10,2)",-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""単価は小数点前8桁、小数点以下2桁で入力してください""
+　]
+}",,,,,,,,,,,,
+18,projectCreate,Bất thường,Check format,projectDetail[i].amount,Khác số hoặc > bigint,-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""金額は正しい形式で入力してください""
+　]
+}",,,,,,,,,,,,
+19,projectCreate,Bất thường,Check size,projectDetail[i].comment,> 300 ký tự,-,"Status: 422 Unprocessable Entity
+{
+　""errors"": [
+　　""備考は300文字以内で入力してください""
+　]
+}",,,,,,,,,,,,
+20,projectCreate,Bất thường,Check format,projectDetail[i].sort,Khác int,-,"Status: 422 Unprocessable Entity 
+{
+　""errors"": [
+　　""並び順は整数で入力してください""
+　]
+}",,,,,,,,,,,,
+21,projectCreate,Bất thường,Check giá trị,deliveryStaffType,"Khác 
+1:自社
+2:代理店
+3:外注先",-,"Status: 422 Unprocessable Entity
+{
+　""errors"": [
+　　""有効な配送区分を入力してください""
+　]
+}",,,,,,,,,,,,
+22,projectCreate,Bất thường,Check size,customerSectionName,> 100 ký tự,-,"Status: 422 Unprocessable Entity
+{
+　""errors"": [
+　　""顧客担当部署名は100文字以内で入力してください""
+　]
+}",,,,,,,,,,,,
+23,projectCreate,Bất thường,Response phải đúng,Response,-,customer.approvalFlag = 0 với customer có id = Parameter:customerId,"Status: 400 Bad Request
+{
+　""errors"": [
+　　""未承認の顧客は登録できません。""
+　]
+}",,,,,,,,,,,,
+24,projectCreate,Bất thường,Response phải đúng,Response,-,"1/ customer có id = Param:customerId AND type =1
+2/ [Parameters].[deliveryStaffType] = 2","Status: 400 Bad Request
+{
+　""errors"": [
+　　""顧客種別と配送区分の組み合わせが正しくありません。""
+　]
+}",,,,,,,,,,,,
+25,projectCreate,Bị kiểm tra lỗi DB,Response phải đúng,Response,-,Param:customerId != customerStaff.customerId với customerStaff.id = Param:customerStaffId,"Status: 500 Internal Server Error
+{
+　""message"": [
+　　""ERROR""
+　]
+}",,,,,,,,,,,,
+26,projectCreate,Bình thường,Response phải đúng,Response,-,Không xảy ra lỗi bên trên,"Status: 201 Created
+{
+   ""id"": project.id vừa tạo
+}",,,,,,,,,,,,
+27,projectCreate,Bình thường,Xử lý đăng ký phải được tiến hành đúng trong table và field,Xử lý lưu DB,-,-,"Xử lý đăng ký phải được tiến hành đúng vào table project
+※Chi tiết tham chiếu test case bên dưới",,,,,,,,,,,,
+28,Bảng project,Bình thường,Giá trị lưu DB phải đúng,id,-,-,auto increment,,,,,,,,,,,,
+29,Bảng project,Bình thường,Giá trị lưu DB phải đúng,orderDate,-,-,orderDate,,,,,,,,,,,,
+30,Bảng project,Bình thường,Giá trị lưu DB phải đúng,deliveryDate,-,-,deliveryDate,,,,,,,,,,,,
+31,Bảng project,Bình thường,Giá trị lưu DB phải đúng,customerId,-,-,customerId,,,,,,,,,,,,
+32,Bảng project,Bình thường,Giá trị lưu DB phải đúng,deliveryStaffType,[userFlag] (của login user) != 11 AND 12,-,deliveryStaffType,,,,,,,,,,,,
+33,Bảng project,Bình thường,Giá trị lưu DB phải đúng,createdAt,-,-,System datetime (JST),,,,,,,,,,,,
+34,Bảng project,Bình thường,Giá trị lưu DB phải đúng,createdBy,-,-,user.id của login user,,,,,,,,,,,,
+35,projectCreate,Bình thường,Xử lý đăng ký phải được tiến hành đúng trong table và field,Xử lý lưu DB,-,-,"Xử lý đăng ký phải được tiến hành đúng vào table projectDetail
+※Chi tiết tham chiếu test case bên dưới",,,,,,,,,,,,
+36,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,id,-,-,auto increment,,,,,,,,,,,,
+37,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,projectId,-,-,project.id được vừa đc tạo,,,,,,,,,,,,
+38,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,customerItemId,-,-,customerItemId,,,,,,,,,,,,
+39,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,quantity,-,-,quantity (cho phép âm),,,,,,,,,,,,
+40,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,unit,-,item.unit từ customerItem.customerItemId.itemId,-,item.unit,,,,,,,,,,,,
+41,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,unitPrice,-,-,unitPrice,,,,,,,,,,,,
+42,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,amount,-,-,quantity * unitPrice (cho phép âm),,,,,,,,,,,,
+43,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,comment,-,-,comment,,,,,,,,,,,,
+44,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,sort,-,-,sort (liên tục),,,,,,,,,,,,
+45,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,createdAt,-,-,System datetime (JST),,,,,,,,,,,,
+46,Bảng projectDetail,Bình thường,Giá trị lưu DB phải đúng,createdBy,-,-,user.id của login user,,,,,,,,,,,,

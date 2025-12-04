@@ -1,0 +1,165 @@
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,Tổng số case,1,,,Tổng số case,0,,,Tổng số case,0,Tổng số case
+,,,,,,,,,Số case đã xác nhận,0,,,Số case đã xác nhận,0,,,Số case đã xác nhận,0,Số case đã xác nhận
+,,,,,,,,,Số case còn lại,1,,,Số case còn lại,0,,,Số case còn lại,0,Số case còn lại
+,,,,,,,,,OK,0,,,OK,0,,,OK,0,OK
+,,,,,,,,,NG,0,,,NG,0,,,NG,0,NG
+,,,,,,,,,WAIT,0,,,WAIT,0,,,WAIT,0,WAIT
+,,,,,,,,,NOT NEED,0,,,NOT NEED,0,,,NOT NEED,0,NOT NEED
+,Tên kế hoạch test,projectSearch,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,Thiết bị test,PC,,Trình duyệt test,Postman,,,,Ngày test lần 1,,,,Ngày test lần 2,,,,Ngày test lần 3,,Test date
+#,Function Test,"Normal/
+Abnormal",Test Detail,Parameter/Item,Input Value,Pre-Condition,Output Value,1st result status,1st test comment,1st tester name,1st fixed ticket number,2nd result status,2nd test comment,2nd tester name,2nd fixed ticket number,3rd result status,3rd test comment,3rd tester name,3rd fixed ticket number
+#,Chức năng test,"Bình thường/ 
+Bất thường",Chi tiết test,Parameter/Hạng mục,Giá trị nhập,Điều kiện tiền đề,Giá trị xuất,Kết quả lần 1,Comment kết quả thực thi test lần 1,Tên tester lần 1,Mã ticket sửa lần 1,Kết quả lần 2,Comment kết quả thực thi test lần 2,Tên tester lần 2,Mã ticket sửa lần 2,Kết quả lần 3,Comment kết quả thực thi test lần 3,Tên tester lần 3,Mã ticket sửa lần 3
+1,projectSearch,Bình thường,URL phải đúng,URL,-,-,GET /v1/project,,,,,,,,,,,,
+2,projectSearch,Bất thường,Check chứng thực,Tổng thể,-,-,"Status: 401 Unauthorized
+{
+　""message"": ""Unauthorized""
+}",,,,,,,,,,,,
+3,projectSearch,Bất thường,Check quyền hạn,Quyền hạn,-,"user.userFlag của login user NOT IN LIST (1,2,11,12)","Status: 403 Forbidden
+{
+　""message"": ""権限がないURLです""
+}",,,,,,,,,,,,
+4,projectSearch,Bình thường,Xác nhận kết quả search có đúng không khi không nhập gì,Response,-,-,Trả về tất cả record project,,,,,,,,,,,,
+5,projectSearch,Bình thường,Thứ tự sort phải được thực hiện đúng,Response,-,-,[Response].[deliveryDate] DESC,,,,,,,,,,,,
+6,projectSearch,Bình thường,Thứ tự sort phải được thực hiện đúng,Response,[Response].[deliveryDate] trùng nhau,-,[Response].[id] DESC,,,,,,,,,,,,
+7,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",orderDateFrom,Giá trị tồn tại trong DB,Optional parameters khác để trống,Trả về các record project có project.orderDate >=  Request parameter:orderDateFrom,,,,,,,,,,,,
+8,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,orderDateFrom,-,-,Search giống toàn bộ,,,,,,,,,,,,
+9,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",orderDateTo,Giá trị tồn tại trong DB,Optional parameters khác để trống,Trả về các record project có project.orderDate <=  Request parameter:orderDateTo,,,,,,,,,,,,
+10,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,orderDateTo,-,-,Search giống toàn bộ,,,,,,,,,,,,
+11,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",deliveryDateFrom,Giá trị tồn tại trong DB,Optional parameters khác để trống,Trả về các record project có project.deliveryDate >=  Request parameter:deliveryDateFrom,,,,,,,,,,,,
+12,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,deliveryDateFrom,-,-,Search giống toàn bộ,,,,,,,,,,,,
+13,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",deliveryDateTo,Giá trị tồn tại trong DB,Optional parameters khác để trống,Trả về các record project có project.deliveryDate <=  Request parameter:deliveryDateTo,,,,,,,,,,,,
+14,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,deliveryDateTo,-,-,Search giống toàn bộ,,,,,,,,,,,,
+15,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",projectDetail,=1,Optional parameters khác để trống,Trả về các record project có projectDetail.length > 0,,,,,,,,,,,,
+16,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,projectDetail,!= 1 OR Ko nhập,Optional parameters khác để trống,Trả về tất cả record project,,,,,,,,,,,,
+17,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",salesStaffId,Giá trị tồn tại trong DB,Optional parameters khác để trống,"Trả về các record project có project.salesStaffId
+ = Request parameter: salesStaffId",,,,,,,,,,,,
+18,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,salesStaffId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+19,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",customerId,Giá trị tồn tại trong DB,Optional parameters khác để trống,"Trả về các record project có project.customerId
+ = Request parameter: customerId",,,,,,,,,,,,
+20,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,customerId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+21,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",deliveryStaffType,Giá trị tồn tại trong DB,Optional parameters khác để trống,"Trả về các record project có project.invoiceprojectId
+ = Request parameter: deliveryStaffType",,,,,,,,,,,,
+22,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,deliveryStaffType,-,-,Search giống toàn bộ,,,,,,,,,,,,
+23,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",staffId,Giá trị tồn tại trong DB,Optional parameters khác để trống,"Trả về các record project có project.staffId
+ = Request parameter: staffId",,,,,,,,,,,,
+24,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,staffId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+25,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",agencyId,-,-,"Trả về các record project có project.agencyId
+ = Request parameter: agencyId",,,,,,,,,,,,
+26,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,agencyId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+25,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",agencyStaffId,-,-,"Trả về các record project có project.agencyStaffId
+ = Request parameter: agencyStaffId",,,,,,,,,,,,
+26,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,agencyStaffId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+29,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",supplierId,-,-,"Trả về các record project có project.supplierId
+ = Request parameter: supplierId",,,,,,,,,,,,
+30,projectSearch,Bình thường,Xử lý search giống toàn bộ hoặc search like phải được thực hiện đúng,supplierId,-,-,Search giống toàn bộ,,,,,,,,,,,,
+31,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",limit,>=0,Optional parameters khác để trống,Trả về Request parameter.limit record đầu tiên,,,,,,,,,,,,
+32,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",offset,>=1,Optional parameters khác để trống,Trả về từ record có thứ tự từ Request parameter: offset + 1,,,,,,,,,,,,
+33,projectSearch,Bình thường,"Search từng hạng mục, kết quả search phải đúng với nội dung trong DB",agency,-,login user.userFlag = 11 OR 12,Trả về record project có project.agencyId = login user.agencyId,,,,,,,,,,,,
+34,projectSearch,Bình thường,"Xử lý search ""and"" hoặc ""or"" phải được thực hiện đúng.",deliveryStaffType,-,Nhập 2 option trở lên,"Search ""or""",,,,,,,,,,,,
+35,projectSearch,Bình thường,"Xử lý search ""and"" hoặc ""or"" phải được thực hiện đúng.",Giữa parameter với parameter,-,-,"Search ""and""",,,,,,,,,,,,
+36,projectSearch,Bình thường,Kết quả search là 0 record phải xử lý đúng,Response,Điều kiện không có kết quả search,Số record tương ứng = 0,"Status: 200 OK
+[]",,,,,,,,,,,,
+37,projectSearch,Bình thường,Response phải đúng,Response,Điều kiện có kết quả search,Số record tương ứng > 0,"Status: 200 OK
+[ 
+     {Tham chiếu bên dưới}
+]
+※Chi tiết tham chiếu test case bên dưới",,,,,,,,,,,,
+38,Bảng project,Bình thường,Chi tiết response là chính xác,id,-,-,project.id,,,,,,,,,,,,
+39,Bảng project,Bình thường,Chi tiết response là chính xác,orderDate,-,-,project.orderDate,,,,,,,,,,,,
+40,Bảng project,Bình thường,Chi tiết response là chính xác,deliveryDate,-,-,project.deliveryDate,,,,,,,,,,,,
+41,Bảng customer,Bình thường,Chi tiết response là chính xác,customer,-,Record customer có id = project.customerId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+42,Bảng customer,Bình thường,Chi tiết response là chính xác,id,-,-,customer.id,,,,,,,,,,,,
+43,Bảng customer,Bình thường,Chi tiết response là chính xác,name,-,-,customer.name,,,,,,,,,,,,
+44,Bảng customer,Bình thường,Chi tiết response là chính xác,kana,-,-,customer.kana,,,,,,,,,,,,
+45,Bảng customer,Bình thường,Chi tiết response là chính xác,nameAcronym,-,-,customer.nameAcronym,,,,,,,,,,,,
+46,Bảng customer,Bình thường,Chi tiết response là chính xác,kanaAcronym,-,-,customer.kanaAcronym,,,,,,,,,,,,
+47,Bảng customer,Bình thường,Chi tiết response là chính xác,receiveCustomer,-,Record customer có id = customer.receiveCustomerId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+48,Bảng customer,Bình thường,Chi tiết response là chính xác,id,-,-,customer.id,,,,,,,,,,,,
+49,Bảng customer,Bình thường,Chi tiết response là chính xác,name,-,-,customer.name,,,,,,,,,,,,
+50,Bảng customer,Bình thường,Chi tiết response là chính xác,kana,-,-,customer.kana,,,,,,,,,,,,
+51,Bảng customer,Bình thường,Chi tiết response là chính xác,nameAcronym,-,-,customer.nameAcronym,,,,,,,,,,,,
+52,Bảng customer,Bình thường,Chi tiết response là chính xác,kanaAcronym,-,-,customer.kanaAcronym,,,,,,,,,,,,
+53,Bảng customer,Bình thường,Chi tiết response là chính xác,aggregateCustomer,-,Record customer có id = customer.aggregateCustomerId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+54,Bảng customer,Bình thường,Chi tiết response là chính xác,id,-,-,customer.id,,,,,,,,,,,,
+55,Bảng customer,Bình thường,Chi tiết response là chính xác,name,-,-,customer.name,,,,,,,,,,,,
+56,Bảng customer,Bình thường,Chi tiết response là chính xác,kana,-,-,customer.kana,,,,,,,,,,,,
+57,Bảng customer,Bình thường,Chi tiết response là chính xác,nameAcronym,-,-,customer.nameAcronym,,,,,,,,,,,,
+58,Bảng customer,Bình thường,Chi tiết response là chính xác,kanaAcronym,-,-,customer.kanaAcronym,,,,,,,,,,,,
+59,Bảng customer,Bình thường,Chi tiết response là chính xác,invoiceCustomer,-,Record customer có id = customer.invoiceCustomerId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+60,Bảng customer,Bình thường,Chi tiết response là chính xác,id,-,-,customer.id,,,,,,,,,,,,
+61,Bảng customer,Bình thường,Chi tiết response là chính xác,name,-,-,customer.name,,,,,,,,,,,,
+62,Bảng customer,Bình thường,Chi tiết response là chính xác,kana,-,-,customer.kana,,,,,,,,,,,,
+63,Bảng customer,Bình thường,Chi tiết response là chính xác,nameAcronym,-,-,customer.nameAcronym,,,,,,,,,,,,
+64,Bảng customer,Bình thường,Chi tiết response là chính xác,kanaAcronym,-,-,customer.kanaAcronym,,,,,,,,,,,,
+65,Bảng customerStaff,Bình thường,Chi tiết response là chính xác,customerStaff,-,Record customerStaff có id = project.customerStaffId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+66,Bảng customerStaff,Bình thường,Chi tiết response là chính xác,id,-,-,customerStaff.id,,,,,,,,,,,,
+67,Bảng customerStaff,Bình thường,Chi tiết response là chính xác,name,-,-,customerStaff.name,,,,,,,,,,,,
+68,Bảng salesStaff,Bình thường,Chi tiết response là chính xác,salesStaff,-,Record staff có staff.id = project.salesStaffId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+69,Bảng salesStaff,Bình thường,Chi tiết response là chính xác,id,-,-,salesStaff.id,,,,,,,,,,,,
+70,Bảng salesStaff,Bình thường,Chi tiết response là chính xác,name,-,-,salesStaff.name,,,,,,,,,,,,
+71,Bảng project,Bình thường,Chi tiết response là chính xác,customerSectionName,-,-,project.customerSectionName,,,,,,,,,,,,
+72,Bảng project,Bình thường,Chi tiết response là chính xác,customerTitle,-,-,project.customerTitle,,,,,,,,,,,,
+73,Bảng project,Bình thường,Chi tiết response là chính xác,customerStaffName,-,-,project.customerStaffName,,,,,,,,,,,,
+74,Bảng project,Bình thường,Chi tiết response là chính xác,customerDeliveryType,-,-,project.customerDeliveryType,,,,,,,,,,,,
+75,Bảng customerDelivery,Bình thường,Chi tiết response là chính xác,customerDelivery,-,Record customerDelivery có id = project.customerDeliveryId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+76,Bảng customerDelivery,Bình thường,Chi tiết response là chính xác,id,-,-,customerDelivery.staffTel,,,,,,,,,,,,
+77,Bảng customerDelivery,Bình thường,Chi tiết response là chính xác,name,-,-,customerDelivery.bankNo,,,,,,,,,,,,
+78,Bảng project,Bình thường,Chi tiết response là chính xác,type,-,-,project.type,,,,,,,,,,,,
+79,Bảng project,Bình thường,Chi tiết response là chính xác,deliveryStaffType,-,-,project.deliveryStaffType,,,,,,,,,,,,
+80,Bảng staff,Bình thường,Chi tiết response là chính xác,staff,-,Record staff có staff.id = project.staffId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+81,Bảng staff,Bình thường,Chi tiết response là chính xác,id,-,-,staff.id,,,,,,,,,,,,
+82,Bảng staff,Bình thường,Chi tiết response là chính xác,name,-,-,staff.name,,,,,,,,,,,,
+83,Bảng agency,Bình thường,Chi tiết response là chính xác,agency,-,Record agency có agency.id = project.agencyId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+84,Bảng agency,Bình thường,Chi tiết response là chính xác,id,-,-,agency.id,,,,,,,,,,,,
+85,Bảng agency,Bình thường,Chi tiết response là chính xác,name,-,-,agency.name,,,,,,,,,,,,
+86,Bảng agencyStaff,Bình thường,Chi tiết response là chính xác,agencyStaff,-,Record agencyStaff có id = project.agencyStaffId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+87,Bảng agencyStaff,Bình thường,Chi tiết response là chính xác,id,-,-,agencyStaff.id,,,,,,,,,,,,
+88,Bảng agencyStaff,Bình thường,Chi tiết response là chính xác,name,-,-,agencyStaff.name,,,,,,,,,,,,
+89,Bảng supplier,Bình thường,Chi tiết response là chính xác,supplier,-,Record supplier có id = project.supplierId,"{
+※Chi tiết tham chiếu test case bên dưới
+}",,,,,,,,,,,,
+90,Bảng supplier,Bình thường,Chi tiết response là chính xác,id,-,-,supplier.id,,,,,,,,,,,,
+91,Bảng supplier,Bình thường,Chi tiết response là chính xác,name,-,-,supplier.name,,,,,,,,,,,,
+92,Bảng project,Bình thường,Chi tiết response là chính xác,companyComment,-,-,project.companyComment,,,,,,,,,,,,
+93,Bảng project,Bình thường,Chi tiết response là chính xác,comment,-,-,project.comment,,,,,,,,,,,,
+94,Bảng project,Bình thường,Chi tiết response là chính xác,amount,-,-,project.amount,,,,,,,,,,,,
+95,Bảng project,Bình thường,Chi tiết response là chính xác,regularDeliveryId,-,-,project.regularDeliveryId,,,,,,,,,,,,
+96,Bảng project,Bình thường,Chi tiết response là chính xác,createdAt,-,-,project.createdAt,,,,,,,,,,,,
+97,Bảng project,Bình thường,Chi tiết response là chính xác,createdBy,-,-,project.createdBy,,,,,,,,,,,,
+98,Bảng project,Bình thường,Chi tiết response là chính xác,createdUserName,-,-,project.createdUserName,,,,,,,,,,,,
+99,Bảng project,Bình thường,Chi tiết response là chính xác,updatedAt,-,-,project.updatedAt,,,,,,,,,,,,
+100,Bảng project,Bình thường,Chi tiết response là chính xác,updatedBy,-,-,project.updatedBy,,,,,,,,,,,,
+101,Bảng project,Bình thường,Chi tiết response là chính xác,updatedUserName,-,-,project.updatedUserName,,,,,,,,,,,,
+102,,,,,,,,,,,,,,,,,,,
+103,Bảng project,Bình thường,Chi tiết response là chính xác,editStatus,-,Tồn tại dù chỉ 1 record data có [projectDetailId].[projectDetailAddChangeHistory].[loadingRecordId] != NULL,NG,,"OrderSpecChange #150472
+Thêm ngày: 2025/06/25",,,,,,,,,,
+104,Bảng project,Bình thường,Chi tiết response là chính xác,editStatus,-,Ngược với trường hợp trên,OK,,"OrderSpecChange #150472
+Thêm ngày: 2025/06/25",,,,,,,,,,
+105,,,,,,,,,,,,,,,,,,,
+106,,,,,,,,,,,,,,,,,,,
+107,,,,,,,,,,,,,,,,,,,
+108,,,,,,,,,,,,,,,,,,,

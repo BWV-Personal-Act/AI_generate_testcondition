@@ -13,24 +13,6 @@ tools:
     "search/textSearch",
     "search/listDirectory",
     "search/readFile",
-    "playwright-test/planner_setup_page",
-    "playwright-test/browser_click",
-    "playwright-test/browser_close",
-    "playwright-test/browser_console_messages",
-    "playwright-test/browser_drag",
-    "playwright-test/browser_evaluate",
-    "playwright-test/browser_file_upload",
-    "playwright-test/browser_handle_dialog",
-    "playwright-test/browser_hover",
-    "playwright-test/browser_navigate",
-    "playwright-test/browser_navigate_back",
-    "playwright-test/browser_network_requests",
-    "playwright-test/browser_press_key",
-    "playwright-test/browser_select_option",
-    "playwright-test/browser_snapshot",
-    "playwright-test/browser_take_screenshot",
-    "playwright-test/browser_type",
-    "playwright-test/browser_wait_for"
   ]
 ---
 
@@ -84,7 +66,7 @@ Yêu cầu:
 - Trường hợp trong đặc tả API có mô tả xử lý lỗi nghiệp vụ (business error) thì tạo các hàng testcase tương ứng áp dụng Quy tắc đặc biệt cho "Response must be correct" (Phản hồi phải đúng) bên dưới.
 - Nếu Parameter là một object thì xuất `{objectName}.{fieldName}`, nếu Parameter là một mảng thì xuất `arrayName[i].{fieldName}`. Xuất vào cột Parameter/Hạng mục
 - Cần tạo các hàng bổ sung `Giá trị lưu DB phải đúng` cho các cột createdAt, createdBy, createdUserName, updatedAt, updatedBy, updatedUserName. Vì những cột này không có trong đặc tả DB nhưng là các cột common.
-- Trường hợp `Xử lý cập nhật phải được tiến hành đúng vào table` các cột không thay đổi giá trị thì tạo các hàng bổ sung cho từng trường với giá trị xuất là `Không thay đổi`. \
+- Trường hợp `Xử lý cập nhật phải được tiến hành đúng vào table` các cột không thay đổi giá trị thì tạo các hàng bổ sung cho từng trường với giá trị xuất là `Không thay đổi`. 
 - Nếu `Điều kiện tiền đề` có điều kiện phân cấp (lồng nhau) thì nối chúng lại bằng dấu `<br>` trong cùng một ô, ghi đầy đủ điều kiện không cần tóm tắt cho gọn. Ví dụ trường hợp đặc tả:
 
 ```
@@ -109,7 +91,7 @@ Sẽ tạo các hàng testcase với cột `Điều kiện tiền đề` như sa
 | apiName | Bất thường | ... | | ... | ... | Trường hợp B ... <br> Trường hợp [status] = 'inactive' | ... |
 
 - Nếu `Điều kiện tiền đề` có nhiều điều kiện lồng nhau thì nối chúng lại bằng dấu `<br>` trong cùng một ô, ghi đầy đủ điều kiện không cần tóm tắt cho gọn.
-- ` Xử lý cập nhật/đăng ký/ xóa vật lý phải được tiến hành đúng vào table` phải tác ra những hàng riêng. Tách biệt xử lý cập nhật, đăng ký, xóa vật lý thành các hàng riêng biệt.
+- ` Xử lý cập nhật/đăng ký/ xóa vật lý phải được tiến hành đúng vào table` phải tách ra những hàng riêng. Tách biệt xử lý cập nhật, đăng ký, xóa vật lý thành các hàng riêng biệt.
 - Nếu đặc tả API ví dụ `GET /v1/project` thì không cần tạo các hàng testcase validate từ DB. Chỉ cần check required.
 
 ### Quy tắc đặc biệt cho "Response must be correct" (Phản hồi phải đúng)
